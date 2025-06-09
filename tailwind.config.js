@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -36,8 +36,9 @@ module.exports = {
         gold: '#d4af37',
       },
       fontFamily: {
-        'playfair': ['Playfair Display', 'serif'],
-        'inter': ['Inter', 'sans-serif'],
+        'playfair': ['var(--font-playfair)', 'Playfair Display', 'serif'],
+        'inter': ['var(--font-inter)', 'Inter', 'sans-serif'],
+        'sans': ['var(--font-inter)', 'Inter', 'sans-serif'],
       },
     },
   },
