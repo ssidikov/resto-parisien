@@ -50,13 +50,9 @@ const nextConfig = {
         port: '3000',
       },
     ],
-    formats: ['image/webp', 'image/avif'],
-  },
-
-  // Experimental features for better performance
-  experimental: {
-    optimizeCss: true,
-  },
+    formats: ['image/webp', 'image/avif'],  },  
+  // Ensure SWC is used for better performance
+  swcMinify: true,
 }
 
 module.exports = nextConfig

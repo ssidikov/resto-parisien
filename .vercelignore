@@ -1,0 +1,33 @@
+# Environment files
+
+.env.local
+.env._.local
+_.env
+
+# Database files
+
+database/
+scripts/
+
+# Documentation
+
+\*.md
+!README.md
+
+# Development files
+
+.vscode/
+.idea/
+
+# Node modules
+
+node_modules/
+
+# Build cache
+
+.next/
+
+# Logs
+
+\*.log
+logs/
