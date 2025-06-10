@@ -122,8 +122,35 @@ export default function Home() {
                 <br />
                 <span className='text-primary-600'>Réservation conseillée</span>
               </p>
-            </div>
+            </div>          </div>
+        </div>
+      </section>
+
+      {/* Call to Action - Réservation */}
+      <section className='py-20 px-4 bg-gradient-to-r from-primary-600 to-primary-700'>
+        <div className='max-w-4xl mx-auto text-center'>
+          <h2 className='text-4xl font-playfair font-bold text-white mb-6'>
+            Réservez votre Table d'Exception
+          </h2>
+          <p className='text-xl text-primary-100 mb-8 max-w-2xl mx-auto'>
+            Vivez une expérience culinaire inoubliable dans notre écrin parisien. 
+            Nos équipes vous accueillent dans un cadre raffiné pour un moment d'exception.
+          </p>
+          <div className='flex flex-col sm:flex-row gap-4 justify-center'>
+            <a
+              href='/reservation'
+              className='bg-white text-primary-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary-50 transition-colors duration-300 shadow-lg'>
+              Réserver en ligne
+            </a>
+            <a
+              href='tel:+33142869145'
+              className='border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-primary-600 transition-colors duration-300'>
+              Appeler le restaurant
+            </a>
           </div>
+          <p className='text-primary-200 mt-6 text-sm'>
+            Service du mardi au samedi • 12h00 - 14h30 & 19h00 - 22h30
+          </p>
         </div>
       </section>
     </>

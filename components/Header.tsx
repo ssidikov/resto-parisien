@@ -37,11 +37,11 @@ const Header: React.FC = () => {
               className='text-charcoal-700 hover:text-primary-600 font-medium transition-colors duration-200'>
               Contact
             </Link>
-            <a
-              href='/contact#reservation'
+            <Link
+              href='/reservation'
               className='bg-primary-600 text-white px-6 py-2 rounded-full font-medium hover:bg-primary-700 transition-colors duration-200'>
               Réserver
-            </a>
+            </Link>
           </nav>
 
           {/* Menu Mobile Button */}
@@ -76,11 +76,12 @@ const Header: React.FC = () => {
                 onClick={() => setIsMenuOpen(false)}>
                 Contact
               </Link>
-              <a
-                href='/contact#reservation'
-                className='bg-primary-600 text-white px-6 py-2 rounded-full font-medium hover:bg-primary-700 transition-colors duration-200 text-center'>
+              <Link
+                href='/reservation'
+                className='bg-primary-600 text-white px-6 py-2 rounded-full font-medium hover:bg-primary-700 transition-colors duration-200 text-center'
+                onClick={() => setIsMenuOpen(false)}>
                 Réserver
-              </a>
+              </Link>
             </div>
           </div>
         )}

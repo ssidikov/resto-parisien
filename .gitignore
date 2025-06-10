@@ -6,6 +6,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+*.log
 
 # Dependency directories
 package-lock.json
@@ -20,13 +21,25 @@ dist/
 # Production build
 build/
 
-# Local env files
+# Environment files - NEVER commit these
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 .env.*.local
+*.env
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
 
 # OS files
 .DS_Store
 Thumbs.db
+*.tmp
+*.temp
 
 # IDEs and editors
 .vscode/
@@ -35,12 +48,25 @@ Thumbs.db
 *.ntvs*
 *.njsproj
 *.sln
+*.swp
+*.swo
 
 # Test coverage
 coverage/
 
+# Security files
+*.pem
+*.key
+*.crt
+*.p12
+secrets/
+keys/
+
+# Backup files
+*.bak
+*.backup
+
 # Misc
 *.local
 *.cache
-*.log
 logs/

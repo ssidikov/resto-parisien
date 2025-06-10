@@ -1,19 +1,32 @@
 {
   "name": "le-moderne-restaurant",
   "version": "0.1.0",
-  "private": true,
-  "scripts": {
+  "private": true,  "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
-  },  "dependencies": {
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "init-db": "npx tsx scripts/init-db.ts",
+    "add-test-data": "npx tsx scripts/add-test-data.ts",
+    "create-admin": "npx tsx scripts/create-admin.ts",
+    "check-admin": "npx tsx scripts/check-admin.ts",
+    "security-audit": "npm audit",
+    "security-fix": "npm audit fix",
+    "cleanup-production": "npx tsx scripts/cleanup-for-production.ts"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.1",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.5.0",
     "lucide-react": "^0.468.0",
     "next": "^15.3.3",
+    "next-auth": "^4.24.11",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.19.0",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.6",
@@ -22,6 +35,7 @@
     "eslint-config-next": "^15.3.3",
     "postcss": "^8.5.4",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   }
 }
