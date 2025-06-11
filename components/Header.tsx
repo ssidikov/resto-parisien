@@ -14,7 +14,7 @@ const Header: React.FC = () => {
           <div className='flex items-center'>
             <Link href='/' className='flex items-center space-x-2'>
               <div className='text-3xl font-playfair font-bold'>
-                <span className='text-charcoal-900'>Le</span>{' '}
+                <span className='text-charcoal-900'>Le</span>
                 <span className='gold-gradient'>Moderne</span>
               </div>
             </Link>

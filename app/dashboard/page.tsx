@@ -144,7 +144,6 @@ export default function Dashboard() {
       <header className='bg-white shadow-sm border-b border-gray-200'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex justify-between items-center h-16'>
-            {' '}
             <div className='flex items-center'>
               <h1 className='text-2xl font-bold text-gray-900'>Le Moderne Restaurant</h1>
               <span className='ml-4 px-3 py-1 bg-amber-100 text-amber-800 text-sm rounded-full'>
@@ -161,7 +160,7 @@ export default function Dashboard() {
                 className='flex items-center space-x-2 px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors'>
                 <Settings className='w-5 h-5' />
                 <span>Changer le mot de passe</span>
-              </button>{' '}
+              </button>
               <button
                 onClick={() => signOut()}
                 className='flex items-center space-x-2 px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors'>
@@ -181,7 +180,7 @@ export default function Dashboard() {
             <div className='flex items-center'>
               <div className='flex-shrink-0'>
                 <Calendar className='h-8 w-8 text-blue-600' />
-              </div>{' '}
+              </div>
               <div className='ml-4'>
                 <p className='text-sm font-medium text-gray-500'>Total réservations</p>
                 <p className='text-2xl font-semibold text-gray-900'>{reservations.length}</p>
@@ -193,7 +192,7 @@ export default function Dashboard() {
             <div className='flex items-center'>
               <div className='flex-shrink-0'>
                 <AlertCircle className='h-8 w-8 text-yellow-600' />
-              </div>{' '}
+              </div>
               <div className='ml-4'>
                 <p className='text-sm font-medium text-gray-500'>En attente</p>
                 <p className='text-2xl font-semibold text-gray-900'>
@@ -207,7 +206,7 @@ export default function Dashboard() {
             <div className='flex items-center'>
               <div className='flex-shrink-0'>
                 <CheckCircle className='h-8 w-8 text-green-600' />
-              </div>{' '}
+              </div>
               <div className='ml-4'>
                 <p className='text-sm font-medium text-gray-500'>Confirmées</p>
                 <p className='text-2xl font-semibold text-gray-900'>
@@ -221,7 +220,7 @@ export default function Dashboard() {
             <div className='flex items-center'>
               <div className='flex-shrink-0'>
                 <XCircle className='h-8 w-8 text-red-600' />
-              </div>{' '}
+              </div>
               <div className='ml-4'>
                 <p className='text-sm font-medium text-gray-500'>Annulées</p>
                 <p className='text-2xl font-semibold text-gray-900'>
@@ -230,12 +229,12 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-        </div>{' '}
+        </div>
         {/* Filters */}
         <div className='bg-white rounded-lg shadow mb-6'>
           <div className='px-6 py-4 border-b border-gray-200'>
             <div className='flex justify-between items-center'>
-              <h2 className='text-lg font-medium text-gray-900'>Gestion des réservations</h2>{' '}
+              <h2 className='text-lg font-medium text-gray-900'>Gestion des réservations</h2>
               <div className='flex gap-2'>
                 <button
                   onClick={fetchReservations}
@@ -256,7 +255,6 @@ export default function Dashboard() {
           </div>
           <div className='px-6 py-4'>
             <div className='flex space-x-4'>
-              {' '}
               {[
                 { key: 'all', label: 'Toutes' },
                 { key: 'pending', label: 'En attente' },
@@ -280,7 +278,6 @@ export default function Dashboard() {
         {/* Reservations List */}
         <div className='bg-white rounded-lg shadow'>
           <div className='px-6 py-4 border-b border-gray-200'>
-            {' '}
             <h3 className='text-lg font-medium text-gray-900'>
               Liste des réservations ({filteredReservations.length})
             </h3>
@@ -313,7 +310,7 @@ export default function Dashboard() {
                 {filteredReservations.map((reservation) => (
                   <tr key={reservation.id} className='hover:bg-gray-50'>
                     <td className='px-6 py-4 whitespace-nowrap'>
-                      <div className='text-sm font-medium text-gray-900'>{reservation.name}</div>{' '}
+                      <div className='text-sm font-medium text-gray-900'>{reservation.name}</div>
                       {reservation.special_requests && (
                         <div className='text-sm text-gray-500'>
                           Demandes spéciales: {reservation.special_requests}
@@ -331,7 +328,6 @@ export default function Dashboard() {
                       </div>
                     </td>
                     <td className='px-6 py-4 whitespace-nowrap'>
-                      {' '}
                       <div className='flex items-center text-sm text-gray-900 mb-1'>
                         <Calendar className='w-4 h-4 mr-2 text-gray-400' />
                         {new Date(reservation.date).toLocaleDateString('fr-FR')}
@@ -359,7 +355,6 @@ export default function Dashboard() {
                     <td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
                       {reservation.status === 'pending' && (
                         <div className='flex justify-end space-x-2'>
-                          {' '}
                           <button
                             onClick={() => updateReservationStatus(reservation.id, 'confirmed')}
                             className='text-green-600 hover:text-green-900 px-3 py-1 rounded bg-green-50 hover:bg-green-100 transition-colors'>
@@ -389,7 +384,7 @@ export default function Dashboard() {
                 </p>
               </div>
             )}
-          </div>{' '}
+          </div>
         </div>
       </main>
 

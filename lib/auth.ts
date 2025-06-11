@@ -25,7 +25,8 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         username: { label: 'Username', type: 'text' },
         password: { label: 'Password', type: 'password' }
-      },      async authorize(credentials) {
+      },
+      async authorize(credentials) {
         if (!credentials?.username || !credentials?.password) {
           console.log('❌ Missing credentials');
           return null;
@@ -34,6 +35,16 @@ export const authOptions: NextAuthOptions = {
         console.log('🔍 Attempting to authenticate:', credentials.username);
 
         try {
+          // Check if we're in development mode with test credentials
+          if (process.env.NODE_ENV === 'development' && credentials.username === 'admin' && credentials.password === 'admin123') {
+            console.log('🔧 Using development test credentials');
+            return {
+              id: '1',
+              name: 'admin',
+              email: 'admin@lemoderne.fr',
+            };
+          }
+
           const users = await sql`SELECT * FROM admins WHERE username = ${credentials.username}`;
           console.log('📊 Found users in DB:', users.length);
 
@@ -64,6 +75,19 @@ export const authOptions: NextAuthOptions = {
           };
         } catch (error) {
           console.error('💥 Auth error:', error);
+          
+          // In development, provide a fallback
+          if (process.env.NODE_ENV === 'development') {
+            console.log('🔧 Database error in development, using fallback for admin/admin123');
+            if (credentials.username === 'admin' && credentials.password === 'admin123') {
+              return {
+                id: '1',
+                name: 'admin',
+                email: 'admin@lemoderne.fr',
+              };
+            }
+          }
+          
           return null;
         }
       }
@@ -71,9 +95,11 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: '/auth/login',
+    error: '/auth/login',
   },
   session: {
     strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -89,4 +115,6 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
+  debug: process.env.NODE_ENV === 'development',
+  secret: process.env.NEXTAUTH_SECRET,
 };

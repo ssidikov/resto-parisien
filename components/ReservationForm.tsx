@@ -92,7 +92,7 @@ export default function ReservationForm() {
                 d='M5 13l4 4L19 7'
               />
             </svg>
-          </div>{' '}
+          </div>
           <h3 className='text-2xl font-bold text-gray-900 mb-2'>Demande Envoyée !</h3>
           <p className='text-gray-600 mb-6'>
             Nous vous recontacterons dans les plus brefs délais pour confirmer votre réservation.
@@ -109,7 +109,6 @@ export default function ReservationForm() {
 
   return (
     <div className='bg-white rounded-2xl shadow-xl p-8 max-w-2xl mx-auto'>
-      {' '}
       <div className='text-center mb-8'>
         <h2 className='text-3xl font-bold text-gray-900 mb-2'>Réserver une Table</h2>
         <p className='text-gray-600'>
@@ -118,7 +117,6 @@ export default function ReservationForm() {
       </div>
       <form onSubmit={handleSubmit} className='space-y-6'>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-          {' '}
           <div>
             <label htmlFor='name' className='block text-sm font-medium text-gray-700 mb-2'>
               Nom *
@@ -151,7 +149,7 @@ export default function ReservationForm() {
                 placeholder='your@email.com'
               />
             </div>
-          </div>{' '}
+          </div>
           <div>
             <label htmlFor='phone' className='block text-sm font-medium text-gray-700 mb-2'>
               Téléphone *
@@ -169,7 +167,7 @@ export default function ReservationForm() {
                 placeholder='+33 1 23 45 67 89'
               />
             </div>
-          </div>{' '}
+          </div>
           <div>
             <label htmlFor='guests' className='block text-sm font-medium text-gray-700 mb-2'>
               Nombre de personnes *
@@ -190,7 +188,7 @@ export default function ReservationForm() {
                 ))}
               </select>
             </div>
-          </div>{' '}
+          </div>
           <div>
             <label htmlFor='date' className='block text-sm font-medium text-gray-700 mb-2'>
               Date *
@@ -208,7 +206,7 @@ export default function ReservationForm() {
                 className='w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent'
               />
             </div>
-          </div>{' '}
+          </div>
           <div>
             <label htmlFor='time' className='block text-sm font-medium text-gray-700 mb-2'>
               Heure *
@@ -239,7 +237,7 @@ export default function ReservationForm() {
               </select>
             </div>
           </div>
-        </div>{' '}
+        </div>
         <div>
           <label
             htmlFor='special_requests'
@@ -258,7 +256,7 @@ export default function ReservationForm() {
               placeholder='Allergies, régimes alimentaires particuliers, événement spécial à célébrer...'
             />
           </div>
-        </div>{' '}
+        </div>
         {error && (
           <div className='bg-red-50 border border-red-200 rounded-lg p-4 text-red-700'>{error}</div>
         )}

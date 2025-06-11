@@ -1,32 +1,8 @@
 'use client'
-import React, { useState } from 'react'
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from 'lucide-react'
+import React from 'react'
+import { MapPin, Phone, Mail, Clock } from 'lucide-react'
 
 const ContactPage = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    date: '',
-    guests: '2',
-    message: ''
-  })
-  const [isSubmitted, setIsSubmitted] = useState(false)
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Simulate form submission
-    setIsSubmitted(true)
-    setTimeout(() => setIsSubmitted(false), 5000)
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream to-white">
@@ -137,137 +113,22 @@ const ContactPage = () => {
                   <span className="w-2 h-2 bg-primary-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                   Menus végétariens et sans gluten disponibles
                 </li>
-              </ul>
-            </div>
+              </ul>            </div>
           </div>
 
-          {/* Reservation Form */}
-          <div id="reservation" className="bg-white rounded-3xl shadow-lg p-8">
-            {isSubmitted ? (
-              <div className="text-center py-8">
-                <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                <h3 className="text-2xl font-playfair font-semibold text-charcoal-900 mb-2">
-                  Demande Envoyée !
-                </h3>
-                <p className="text-charcoal-600">
-                  Nous vous recontacterons dans les plus brefs délais pour confirmer votre réservation.
-                </p>
-              </div>
-            ) : (
-              <>
-                <h2 className="text-2xl font-playfair font-bold text-charcoal-900 mb-6">
-                  Réserver une Table
-                </h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-charcoal-700 mb-2" htmlFor="name">
-                        Nom Complet *
-                      </label>
-                      <input
-                        className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-charcoal-700 mb-2" htmlFor="email">
-                        Email *
-                      </label>
-                      <input
-                        className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-charcoal-700 mb-2" htmlFor="phone">
-                        Téléphone *
-                      </label>
-                      <input
-                        className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-charcoal-700 mb-2" htmlFor="guests">
-                        Nombre de Personnes
-                      </label>
-                      <select
-                        className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
-                        id="guests"
-                        name="guests"
-                        value={formData.guests}
-                        onChange={handleInputChange}
-                      >
-                        {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
-                          <option key={num} value={num}>{num} personne{num > 1 ? 's' : ''}</option>
-                        ))}
-                        <option value="9+">9+ personnes</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-charcoal-700 mb-2" htmlFor="date">
-                      Date Souhaitée *
-                    </label>
-                    <input
-                      className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
-                      type="datetime-local"
-                      id="date"
-                      name="date"
-                      value={formData.date}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-charcoal-700 mb-2" htmlFor="message">
-                      Message (Allergies, Demandes Spéciales...)
-                    </label>
-                    <textarea
-                      className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
-                      id="message"
-                      name="message"
-                      rows={4}
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      placeholder="Mentionnez ici vos allergies, préférences alimentaires ou toute demande particulière..."
-                    ></textarea>
-                  </div>
-
-                  <button
-                    className="w-full bg-primary-600 text-white font-semibold py-4 px-6 rounded-lg hover:bg-primary-700 transition-colors duration-200 flex items-center justify-center space-x-2"
-                    type="submit"
-                  >
-                    <Send className="w-5 h-5" />
-                    <span>Envoyer la Demande</span>
-                  </button>
-
-                  <p className="text-sm text-charcoal-500 text-center">
-                    En soumettant ce formulaire, vous acceptez d'être recontacté par notre équipe pour confirmer votre réservation.
-                  </p>
-                </form>
-              </>
-            )}
+          {/* Reservation Link */}
+          <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
+            <h2 className="text-2xl font-playfair font-bold text-charcoal-900 mb-6">
+              Réserver une Table
+            </h2>
+            <p className="text-charcoal-600 mb-8">
+              Utilisez notre système de réservation en ligne pour réserver votre table facilement et rapidement.
+            </p>
+            <a
+              href="/reservation"
+              className="inline-flex items-center justify-center space-x-2 bg-primary-600 text-white font-semibold py-4 px-8 rounded-lg hover:bg-primary-700 transition-colors duration-200"
+            >            <span>Réserver Maintenant</span>
+            </a>
           </div>
         </div>
       </div>

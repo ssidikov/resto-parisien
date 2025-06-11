@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
           <div className='lg:col-span-1'>
             <div className='flex items-center space-x-2 mb-4'>
               <div className='text-2xl font-playfair font-bold'>
-                <span className='text-white'>Le</span>{' '}
+                <span className='text-white'>Le</span>
                 <span className='gold-gradient'>Moderne</span>
               </div>
             </div>
@@ -124,12 +124,12 @@ const Footer: React.FC = () => {
                 © {new Date().getFullYear()} Le Moderne. Tous droits réservés.
               </p>
               <p className='text-charcoal-500 text-xs'>
-                Site réalisé par{' '}
+                Site réalisé par
                 <a
                   href='https://sidikoff.com'
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='text-primary-400 hover:text-primary-300 transition-colors font-medium'>
+                  className='text-primary-400 hover:text-primary-300 transition-colors font-medium ml-1'>
                   Agence web SIDIKOFF DIGITAL
                 </a>
               </p>
