@@ -64,6 +64,12 @@ export default function Dashboard() {
   const [showQuickActions, setShowQuickActions] = useState(false)
   const [emailTestResult, setEmailTestResult] = useState<string>('')
   const [isTestingEmail, setIsTestingEmail] = useState(false)
+  const [isHydrated, setIsHydrated] = useState(false)
+
+  // Hydration check
+  useEffect(() => {
+    setIsHydrated(true)
+  }, [])
 
   useEffect(() => {
     if (status === 'loading') return
@@ -78,9 +84,11 @@ export default function Dashboard() {
 
   // Load dark mode preference on mount
   useEffect(() => {
-    const savedDarkMode = localStorage.getItem('darkMode')
-    if (savedDarkMode) {
-      setIsDarkMode(savedDarkMode === 'true')
+    if (typeof window !== 'undefined') {
+      const savedDarkMode = localStorage.getItem('darkMode')
+      if (savedDarkMode) {
+        setIsDarkMode(savedDarkMode === 'true')
+      }
     }
   }, [])
 
@@ -191,7 +199,9 @@ export default function Dashboard() {
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode)
-    localStorage.setItem('darkMode', (!isDarkMode).toString())
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('darkMode', (!isDarkMode).toString())
+    }
   }
 
   const getStatusIcon = (status: string) => {
@@ -287,11 +297,12 @@ export default function Dashboard() {
       })
 
       const data = await response.json()
-      
+
       if (response.ok) {
-        setEmailTestResult(data.emailConfigured 
-          ? '✅ Configuration email validée!' 
-          : '❌ Configuration email invalide'
+        setEmailTestResult(
+          data.emailConfigured
+            ? '✅ Configuration email validée!'
+            : '❌ Configuration email invalide'
         )
         console.log('Email test result:', data)
       } else {
@@ -320,11 +331,12 @@ export default function Dashboard() {
       })
 
       const data = await response.json()
-      
+
       if (response.ok) {
-        setEmailTestResult(data.testEmailSent 
-          ? '✅ Email de test envoyé avec succès!' 
-          : '❌ Échec de l\'envoi de l\'email de test'
+        setEmailTestResult(
+          data.testEmailSent
+            ? '✅ Email de test envoyé avec succès!'
+            : "❌ Échec de l'envoi de l'email de test"
         )
         if (data.testEmailSent) {
           setSuccessMessage('Email de test envoyé à galaxys7air@gmail.com')
@@ -342,14 +354,15 @@ export default function Dashboard() {
     }
   }
 
-  if (status === 'loading' || loading) {
+  if (status === 'loading' || loading || !isHydrated) {
     return (
       <div
         className={`min-h-screen flex items-center justify-center transition-all duration-300 ${
           isDarkMode
             ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
             : 'bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50'
-        }`}>
+        }`}
+        suppressHydrationWarning>
         <div className='text-center'>
           <div className='relative mb-8'>
             <div
@@ -387,12 +400,14 @@ export default function Dashboard() {
         isDarkMode
           ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
           : 'bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50'
-      }`}>
+      }`}
+      suppressHydrationWarning>
       {/* Modern Header */}
       <header
         className={`backdrop-blur-xl shadow-lg border-b sticky top-0 z-40 transition-all duration-300 ${
           isDarkMode ? 'bg-gray-900/90 border-gray-700/50' : 'bg-white/90 border-amber-200/50'
-        }`}>
+        }`}
+        suppressHydrationWarning>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex justify-between items-center h-16 md:h-20'>
             {/* Logo and Title */}
@@ -1094,11 +1109,10 @@ export default function Dashboard() {
 
       {/* Email Test Result Toast */}
       {emailTestResult && (
-        <div className={`fixed top-20 right-6 px-6 py-4 rounded-2xl shadow-2xl z-50 animate-bounce ${
-          emailTestResult.includes('✅') 
-            ? 'bg-green-600 text-white' 
-            : 'bg-red-600 text-white'
-        }`}>
+        <div
+          className={`fixed top-20 right-6 px-6 py-4 rounded-2xl shadow-2xl z-50 animate-bounce ${
+            emailTestResult.includes('✅') ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
+          }`}>
           <div className='flex items-center space-x-3'>
             {emailTestResult.includes('✅') ? (
               <CheckCircle className='w-6 h-6' />
@@ -1138,7 +1152,7 @@ export default function Dashboard() {
           )}
           <span className='hidden lg:inline'>Test Config</span>
         </button>
-        
+
         <button
           onClick={sendTestEmail}
           disabled={isTestingEmail}
@@ -1156,63 +1170,8 @@ export default function Dashboard() {
           <span className='hidden lg:inline'>Test Email</span>
         </button>
       </div>
-      
-      {/* Notifications */}
-      <button
-        className={`relative p-2 rounded-full transition-all duration-200 ${
-          isDarkMode
-            ? 'text-yellow-400 hover:bg-gray-800'
-            : 'text-amber-600 hover:bg-amber-100'
-        }`}>
-        <Bell className='w-5 h-5' />
-        {reservations.filter((r) => r.status === 'pending').length > 0 && (
-          <span className='absolute -top-1 -right-1 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-medium'>
-            {reservations.filter((r) => r.status === 'pending').length}
-          </span>
-        )}
-      </button>
 
-      {/* User Profile Section */}
-      <div
-        className={`flex items-center space-x-3 rounded-full px-4 py-2 transition-all duration-300 ${
-          isDarkMode
-            ? 'bg-gradient-to-r from-gray-800 to-gray-700'
-            : 'bg-gradient-to-r from-amber-100 to-orange-100'
-        }`}>
-        <div className='hidden md:block text-right'>
-          <p
-            className={`text-sm font-semibold ${
-              isDarkMode ? 'text-white' : 'text-gray-900'
-            }`}>
-            {session?.user?.name}
-          </p>
-          <p className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-amber-600'}`}>
-            Administrateur
-          </p>
-        </div>
-        <div className='flex items-center space-x-2'>
-          <button
-            onClick={() => setIsChangePasswordModalOpen(true)}
-            className={`p-2 rounded-full transition-all duration-200 hover:scale-105 ${
-              isDarkMode
-                ? 'text-yellow-400 hover:bg-gray-700'
-                : 'text-amber-600 hover:bg-white/50'
-            }`}
-            title='Paramètres du compte'>
-            <Settings className='w-5 h-5' />
-          </button>
-          <button
-            onClick={() => signOut()}
-            className={`p-2 rounded-full transition-all duration-200 hover:scale-105 ${
-              isDarkMode
-                ? 'text-red-400 hover:bg-red-900/30'
-                : 'text-red-600 hover:bg-red-100'
-            }`}
-            title='Se déconnecter'>
-            <LogOut className='w-5 h-5' />
-          </button>
-        </div>
-      </div>
+      {/* Notifications */}
     </div>
   )
 }

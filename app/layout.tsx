@@ -8,11 +8,13 @@ import NextAuthProvider from '../components/NextAuthProvider'
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap',
 })
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
   variable: '--font-playfair',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -45,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='fr' className={`${inter.variable} ${playfair.variable}`}>
+    <html lang='fr' className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
       <body className={inter.className}>
         <NextAuthProvider>
           <div className='flex flex-col min-h-screen'>

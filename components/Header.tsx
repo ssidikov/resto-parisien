@@ -2,9 +2,16 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
+
+  // Скрыть Header на странице dashboard
+  if (pathname === '/dashboard') {
+    return null
+  }
 
   return (
     <header className='glass-effect sticky top-0 z-50 border-b border-primary-100'>
