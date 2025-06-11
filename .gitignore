@@ -70,3 +70,4 @@ keys/
 *.local
 *.cache
 logs/
+.env.development
