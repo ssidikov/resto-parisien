@@ -62,8 +62,6 @@ export default function Dashboard() {
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [isExporting, setIsExporting] = useState(false)
   const [showQuickActions, setShowQuickActions] = useState(false)
-  const [emailTestResult, setEmailTestResult] = useState<string>('')
-  const [isTestingEmail, setIsTestingEmail] = useState(false)
 
   useEffect(() => {
     if (status === 'loading') return
@@ -273,75 +271,6 @@ export default function Dashboard() {
     },
   ]
 
-  const testEmailConfiguration = async () => {
-    setIsTestingEmail(true)
-    setEmailTestResult('')
-
-    try {
-      console.log('🧪 Testing email configuration...')
-      const response = await fetch('/api/test-email', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-
-      const data = await response.json()
-      
-      if (response.ok) {
-        setEmailTestResult(data.emailConfigured 
-          ? '✅ Configuration email validée!' 
-          : '❌ Configuration email invalide'
-        )
-        console.log('Email test result:', data)
-      } else {
-        setEmailTestResult(`❌ Erreur: ${data.error}`)
-      }
-    } catch (error) {
-      setEmailTestResult('❌ Erreur de connexion')
-      console.error('Email test error:', error)
-    } finally {
-      setIsTestingEmail(false)
-      setTimeout(() => setEmailTestResult(''), 5000)
-    }
-  }
-
-  const sendTestEmail = async () => {
-    setIsTestingEmail(true)
-    setEmailTestResult('')
-
-    try {
-      console.log('📧 Sending test email...')
-      const response = await fetch('/api/test-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-
-      const data = await response.json()
-      
-      if (response.ok) {
-        setEmailTestResult(data.testEmailSent 
-          ? '✅ Email de test envoyé avec succès!' 
-          : '❌ Échec de l\'envoi de l\'email de test'
-        )
-        if (data.testEmailSent) {
-          setSuccessMessage('Email de test envoyé à galaxys7air@gmail.com')
-          setTimeout(() => setSuccessMessage(''), 3000)
-        }
-      } else {
-        setEmailTestResult(`❌ Erreur: ${data.error}`)
-      }
-    } catch (error) {
-      setEmailTestResult('❌ Erreur de connexion')
-      console.error('Test email error:', error)
-    } finally {
-      setIsTestingEmail(false)
-      setTimeout(() => setEmailTestResult(''), 5000)
-    }
-  }
-
   if (status === 'loading' || loading) {
     return (
       <div
@@ -464,7 +393,7 @@ export default function Dashboard() {
                 }`}>
                 <Bell className='w-5 h-5' />
                 {reservations.filter((r) => r.status === 'pending').length > 0 && (
-                  <span className='absolute -top-1 -right-1 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-medium'>
+                  <span className='absolute -top-1 -right-1 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-medium animate-pulse'>
                     {reservations.filter((r) => r.status === 'pending').length}
                   </span>
                 )}
@@ -1092,24 +1021,6 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Email Test Result Toast */}
-      {emailTestResult && (
-        <div className={`fixed top-20 right-6 px-6 py-4 rounded-2xl shadow-2xl z-50 animate-bounce ${
-          emailTestResult.includes('✅') 
-            ? 'bg-green-600 text-white' 
-            : 'bg-red-600 text-white'
-        }`}>
-          <div className='flex items-center space-x-3'>
-            {emailTestResult.includes('✅') ? (
-              <CheckCircle className='w-6 h-6' />
-            ) : (
-              <XCircle className='w-6 h-6' />
-            )}
-            <span className='font-medium'>{emailTestResult}</span>
-          </div>
-        </div>
-      )}
-
       {/* Change Password Modal */}
       <ChangePasswordModal
         isOpen={isChangePasswordModalOpen}
@@ -1119,100 +1030,6 @@ export default function Dashboard() {
           setTimeout(() => setSuccessMessage(''), 3000)
         }}
       />
-
-      {/* Email Testing Section */}
-      <div className='flex items-center space-x-2'>
-        <button
-          onClick={testEmailConfiguration}
-          disabled={isTestingEmail}
-          className={`flex items-center space-x-2 px-3 py-2 rounded-full font-medium transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
-            isDarkMode
-              ? 'bg-purple-600 text-white hover:bg-purple-700'
-              : 'bg-purple-600 text-white hover:bg-purple-700'
-          }`}
-          title='Tester la configuration email'>
-          {isTestingEmail ? (
-            <RefreshCw className='w-4 h-4 animate-spin' />
-          ) : (
-            <Settings className='w-4 h-4' />
-          )}
-          <span className='hidden lg:inline'>Test Config</span>
-        </button>
-        
-        <button
-          onClick={sendTestEmail}
-          disabled={isTestingEmail}
-          className={`flex items-center space-x-2 px-3 py-2 rounded-full font-medium transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
-            isDarkMode
-              ? 'bg-green-600 text-white hover:bg-green-700'
-              : 'bg-green-600 text-white hover:bg-green-700'
-          }`}
-          title='Envoyer un email de test'>
-          {isTestingEmail ? (
-            <RefreshCw className='w-4 h-4 animate-spin' />
-          ) : (
-            <Mail className='w-4 h-4' />
-          )}
-          <span className='hidden lg:inline'>Test Email</span>
-        </button>
-      </div>
-      
-      {/* Notifications */}
-      <button
-        className={`relative p-2 rounded-full transition-all duration-200 ${
-          isDarkMode
-            ? 'text-yellow-400 hover:bg-gray-800'
-            : 'text-amber-600 hover:bg-amber-100'
-        }`}>
-        <Bell className='w-5 h-5' />
-        {reservations.filter((r) => r.status === 'pending').length > 0 && (
-          <span className='absolute -top-1 -right-1 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-medium'>
-            {reservations.filter((r) => r.status === 'pending').length}
-          </span>
-        )}
-      </button>
-
-      {/* User Profile Section */}
-      <div
-        className={`flex items-center space-x-3 rounded-full px-4 py-2 transition-all duration-300 ${
-          isDarkMode
-            ? 'bg-gradient-to-r from-gray-800 to-gray-700'
-            : 'bg-gradient-to-r from-amber-100 to-orange-100'
-        }`}>
-        <div className='hidden md:block text-right'>
-          <p
-            className={`text-sm font-semibold ${
-              isDarkMode ? 'text-white' : 'text-gray-900'
-            }`}>
-            {session?.user?.name}
-          </p>
-          <p className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-amber-600'}`}>
-            Administrateur
-          </p>
-        </div>
-        <div className='flex items-center space-x-2'>
-          <button
-            onClick={() => setIsChangePasswordModalOpen(true)}
-            className={`p-2 rounded-full transition-all duration-200 hover:scale-105 ${
-              isDarkMode
-                ? 'text-yellow-400 hover:bg-gray-700'
-                : 'text-amber-600 hover:bg-white/50'
-            }`}
-            title='Paramètres du compte'>
-            <Settings className='w-5 h-5' />
-          </button>
-          <button
-            onClick={() => signOut()}
-            className={`p-2 rounded-full transition-all duration-200 hover:scale-105 ${
-              isDarkMode
-                ? 'text-red-400 hover:bg-red-900/30'
-                : 'text-red-600 hover:bg-red-100'
-            }`}
-            title='Se déconnecter'>
-            <LogOut className='w-5 h-5' />
-          </button>
-        </div>
-      </div>
     </div>
   )
 }
